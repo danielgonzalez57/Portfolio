@@ -11,7 +11,16 @@ export interface Project {
 
 export interface StackItem {
   name: string;
+  icon?: string;
   primary?: boolean;
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon: 'web' | 'api' | 'landing' | 'mvp';
+  features: string[];
 }
 
 export interface StackCategory {

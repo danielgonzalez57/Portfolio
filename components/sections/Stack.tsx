@@ -2,6 +2,7 @@
 
 import { stack } from '@/lib/data';
 import { useInView } from '@/hooks/useInView';
+import TechIcon from '@/components/icons/TechIcon';
 
 export default function Stack() {
   const { ref, inView } = useInView();
@@ -16,7 +17,7 @@ export default function Stack() {
         {/* Section header */}
         <div className="mb-12">
           <p className="font-mono text-xs text-accent tracking-widest glow mb-3">
-            // 03. STACK_
+            // 04. STACK_
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
             Herramientas que uso
@@ -38,19 +39,13 @@ export default function Stack() {
                   <div
                     key={item.name}
                     className={[
-                      'flex items-center gap-2 px-3 py-2 rounded-lg border transition-colors',
+                      'flex items-center gap-2.5 px-3 py-2 rounded-lg border transition-all duration-300',
                       item.primary
-                        ? 'border-accent/20 bg-accent/5 text-primary hover:border-accent/40'
-                        : 'border-border bg-surface text-muted hover:border-accent/20 hover:text-primary',
+                        ? 'border-accent/20 bg-accent/5 text-primary hover:border-accent/50 hover:bg-accent/10 hover:-translate-y-0.5'
+                        : 'border-border bg-surface text-muted hover:border-accent/30 hover:text-primary hover:-translate-y-0.5',
                     ].join(' ')}
                   >
-                    <span
-                      className={`font-mono text-xs shrink-0 ${
-                        item.primary ? 'text-accent' : 'text-muted/40'
-                      }`}
-                    >
-                      $
-                    </span>
+                    <TechIcon name={item.icon} size={18} className="shrink-0 inline-flex" />
                     <span className="font-mono text-xs">{item.name}</span>
                     {item.primary && (
                       <span className="ml-auto w-1.5 h-1.5 rounded-full bg-accent/60 shrink-0" />

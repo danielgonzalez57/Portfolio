@@ -1,29 +1,29 @@
-import type { Profile, Project, StackCategory } from '@/types';
+import type { Profile, Project, Service, StackCategory } from '@/types';
 
 // TODO: Update all fields with your real information
 export const profile: Profile = {
   name: 'Daniel',
   handle: 'jarvis_404',
-  role: 'Full-Stack Developer',
+  role: 'Full-Stack Developer | IA-Native Developer',
   bio: 'Construyo aplicaciones web modernas con foco en rendimiento, buena UX y código limpio. Me apasiona el ecosistema JavaScript/TypeScript y las arquitecturas escalables.',
-  location: 'Argentina',
-  email: 'daniel@email.com', // TODO: Update
+  location: 'Venezuela',
+  email: 'danielsrkt@gmail.com',
   avatar: '/images/profile/perfil1.png',
-  cv: '/cv.pdf', // TODO: Add your CV to public/
+  cv: '/CV.pdf',
   social: [
     {
       label: 'GitHub',
-      href: 'https://github.com/jarvis404', // TODO: Update
+      href: 'https://github.com/danielgonzalez57',
       icon: 'github',
     },
     {
       label: 'LinkedIn',
-      href: 'https://linkedin.com/in/daniel', // TODO: Update
+      href: 'https://www.linkedin.com/in/daniel-gonzalez-651125241/',
       icon: 'linkedin',
     },
     {
       label: 'Email',
-      href: 'mailto:daniel@email.com', // TODO: Update
+      href: 'mailto:danielsrkt@gmail.com',
       icon: 'email',
     },
   ],
@@ -80,40 +80,75 @@ export const stack: StackCategory[] = [
   {
     label: 'Frontend',
     items: [
-      { name: 'React', primary: true },
-      { name: 'Next.js', primary: true },
-      { name: 'TypeScript', primary: true },
-      { name: 'Tailwind CSS', primary: true },
-      { name: 'Angular' },
-      { name: 'Astro' },
+      { name: 'React',        icon: 'react',      primary: true },
+      { name: 'Next.js',      icon: 'nextjs',     primary: true },
+      { name: 'TypeScript',   icon: 'typescript', primary: true },
+      { name: 'Tailwind CSS', icon: 'tailwind',   primary: true },
+      { name: 'Angular',      icon: 'angular' },
+      { name: 'Astro',        icon: 'astro' },
     ],
   },
   {
     label: 'Backend',
     items: [
-      { name: 'Node.js', primary: true },
-      { name: 'Prisma', primary: true },
-      { name: 'REST APIs', primary: true },
-      { name: 'NextAuth' },
-      { name: 'JWT' },
+      { name: 'Node.js',   icon: 'nodejs',   primary: true },
+      { name: 'Prisma',    icon: 'prisma',   primary: true },
+      { name: 'REST APIs', icon: 'api',      primary: true },
+      { name: 'NextAuth',  icon: 'nextauth' },
+      { name: 'JWT',       icon: 'jwt' },
     ],
   },
   {
     label: 'Base de datos',
     items: [
-      { name: 'PostgreSQL', primary: true },
-      { name: 'MySQL' },
-      { name: 'SQLite' },
+      { name: 'PostgreSQL', icon: 'postgresql', primary: true },
+      { name: 'MySQL',      icon: 'mysql' },
+      { name: 'SQLite',     icon: 'sqlite' },
     ],
   },
   {
     label: 'Herramientas',
     items: [
-      { name: 'Git', primary: true },
-      { name: 'Docker', primary: true },
-      { name: 'VS Code', primary: true },
-      { name: 'Figma' },
-      { name: 'Postman' },
+      { name: 'Git',     icon: 'git',     primary: true },
+      { name: 'Docker',  icon: 'docker',  primary: true },
+      { name: 'VS Code', icon: 'vscode',  primary: true },
+      { name: 'Figma',   icon: 'figma' },
+      { name: 'Postman', icon: 'postman' },
     ],
+  },
+];
+
+export const services: Service[] = [
+  {
+    id: 'web-apps',
+    title: 'Aplicaciones Web',
+    description:
+      'Apps full-stack a medida con Next.js y React. Desde dashboards hasta plataformas SaaS, optimizadas para rendimiento y SEO.',
+    icon: 'web',
+    features: ['Next.js / React', 'Auth & Base de datos', 'Deploy en Vercel'],
+  },
+  {
+    id: 'apis',
+    title: 'APIs & Backends',
+    description:
+      'APIs REST robustas con Node.js, autenticación JWT, validación y documentación. Integración con bases de datos y servicios externos.',
+    icon: 'api',
+    features: ['REST / Endpoints', 'JWT & Roles', 'PostgreSQL / Prisma'],
+  },
+  {
+    id: 'landing',
+    title: 'Landing & E-commerce',
+    description:
+      'Landing pages que convierten y tiendas online con catálogo, carrito y pasarela de pago. Diseño mobile-first y carga ultrarrápida.',
+    icon: 'landing',
+    features: ['Mobile-first', 'SEO optimizado', 'Pagos integrados'],
+  },
+  {
+    id: 'mvp',
+    title: 'MVP & Prototipos',
+    description:
+      'Lanzá tu idea en semanas, no meses. Stack moderno, código limpio y listo para escalar cuando tu producto crezca.',
+    icon: 'mvp',
+    features: ['Entrega rápida', 'Código escalable', 'Iteración ágil'],
   },
 ];

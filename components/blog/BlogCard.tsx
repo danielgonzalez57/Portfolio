@@ -28,12 +28,12 @@ export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block border border-border rounded-xl bg-surface hover:border-accent/30 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
+      className="group flex flex-col h-full border border-border rounded-xl bg-surface hover:border-accent/30 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
     >
       {/* Top accent line */}
-      <div className="h-0.5 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="h-0.5 bg-linear-to-r from-accent/0 via-accent/40 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
 
-      <div className="p-5 sm:p-6">
+      <div className="flex flex-col flex-1 p-5 sm:p-6">
         {/* Meta */}
         <div className="flex items-center gap-2 mb-3 flex-wrap">
           <span
@@ -55,7 +55,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         </h2>
 
         {/* Excerpt */}
-        <p className="text-sm text-muted leading-relaxed line-clamp-3 mb-4">
+        <p className="text-sm text-muted leading-relaxed line-clamp-3 mb-4 flex-1">
           {post.excerpt}
         </p>
 

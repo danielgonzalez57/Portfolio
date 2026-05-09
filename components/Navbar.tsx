@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAppContext } from '@/contexts/AppContext';
-import { profile } from '@/lib/data';
 
 const NAV_LINKS = [
-  { label: 'about',    href: '/#about' },
+  { label: 'about',    href: '/#about-me' },
   { label: 'projects', href: '/#projects' },
   { label: 'stack',    href: '/#stack' },
+  { label: 'services', href: '/#services' },
   { label: 'contact',  href: '/#contact' },
   { label: 'blog',     href: '/blog' },
 ] as const;
@@ -29,11 +29,14 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
+const SECTION_IDS = ['about-me', 'projects', 'stack', 'services', 'contact'];
+
 export default function Navbar() {
   const { theme, toggleTheme } = useAppContext();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -46,6 +49,34 @@ export default function Navbar() {
   }, [pathname]);
 
   const isBlog = pathname.startsWith('/blog');
+
+  // Scroll-spy: tracks which section is currently in view
+  useEffect(() => {
+    if (isBlog) {
+      setActiveSection('');
+      return;
+    }
+
+    const sections = SECTION_IDS
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-35% 0px -55% 0px', threshold: 0 }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [isBlog]);
 
   return (
     <>
@@ -67,17 +98,15 @@ export default function Navbar() {
               const isActive =
                 link.href === '/blog'
                   ? isBlog
-                  : !isBlog && link.href.startsWith('/#');
+                  : !isBlog && link.href === `/#${activeSection}`;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={[
                     'font-mono text-xs px-3 py-1.5 rounded-sm transition-colors',
-                    link.href === '/blog'
-                      ? isActive
-                        ? 'text-accent border border-accent/40 bg-accent/5'
-                        : 'text-muted border border-transparent hover:text-accent hover:border-accent/30'
+                    isActive
+                      ? 'text-accent glow'
                       : 'text-muted hover:text-primary',
                   ].join(' ')}
                 >
@@ -112,17 +141,26 @@ export default function Navbar() {
         {menuOpen && (
           <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md animate-slide-down">
             <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="font-mono text-sm text-muted hover:text-accent px-2 py-2.5 rounded-lg hover:bg-surface transition-colors flex items-center gap-2"
-                >
-                  <span className="text-accent">›</span>
-                  {link.label}
-                </Link>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const isActive =
+                  link.href === '/blog'
+                    ? isBlog
+                    : !isBlog && link.href === `/#${activeSection}`;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={[
+                      'font-mono text-sm px-2 py-2.5 rounded-lg hover:bg-surface transition-colors flex items-center gap-2',
+                      isActive ? 'text-accent glow' : 'text-muted hover:text-accent',
+                    ].join(' ')}
+                  >
+                    <span className="text-accent">›</span>
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}

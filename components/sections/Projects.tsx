@@ -121,7 +121,7 @@ export default function Projects() {
         {/* Section header */}
         <div className="mb-12">
           <p className="font-mono text-xs text-accent tracking-widest glow mb-3">
-            // 02. PROJECTS_
+            // 03. PROJECTS_
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
             Lo que he construido

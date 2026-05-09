@@ -168,25 +168,53 @@ export default function Hero() {
 
           {/* Right: Avatar */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end animate-fade-in">
-            <div className="relative">
-              {/* Decorative border */}
-              <div className="absolute -inset-3 border border-accent/20 rounded-2xl" />
-              <div className="absolute -inset-6 border border-accent/8 rounded-3xl" />
+            <div className="relative group">
+              {/* Terminal window */}
+              <div
+                className="terminal-card border border-accent/30 rounded-md overflow-hidden"
+                style={{ boxShadow: '0 0 40px rgba(30,215,96,0.08), 0 0 80px rgba(30,215,96,0.03)' }}
+              >
+                {/* Title bar */}
+                <div className="bg-surface border-b border-accent/20 px-3 py-2 flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-accent/70" />
+                  </div>
+                  <span className="font-mono text-xs text-muted">~/daniel/profile.png</span>
+                </div>
 
-              {/* Avatar container */}
-              <div className="relative w-56 h-56 sm:w-72 sm:h-72 rounded-2xl overflow-hidden border border-border bg-surface">
-                <Image
-                  src={profile.avatar}
-                  alt={profile.name}
-                  fill
-                  className="object-cover z-10"
-                  priority
-                />
+                {/* Photo */}
+                <div className="relative w-56 sm:w-72 aspect-square">
+                  <Image
+                    src={profile.avatar}
+                    alt={profile.name}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  {/* Scanlines overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px)' }}
+                  />
+                  {/* Bottom gradient */}
+                  <div className="absolute bottom-0 inset-x-0 h-14 bg-linear-to-t from-accent/10 to-transparent" />
+                </div>
+
+                {/* Status bar */}
+                <div className="bg-surface border-t border-accent/20 px-3 py-1.5 flex items-center justify-between">
+                  <span className="font-mono text-xs text-accent flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent inline-block" />
+                    online
+                  </span>
+                  <span className="font-mono text-xs text-muted/50">daniel@dev:~$</span>
+                </div>
               </div>
 
-              {/* Accent dot decoration */}
-              <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-accent rounded-full" />
-              <div className="absolute -top-2 -left-2 w-2 h-2 bg-accent/50 rounded-full" />
+              {/* Corner accents */}
+              <div className="absolute -top-px -right-px w-6 h-6 border-t-2 border-r-2 rounded-tr-md border-accent/60 transition-all duration-500 group-hover:w-8 group-hover:h-8 group-hover:border-accent" />
+              <div className="absolute -bottom-px -left-px w-6 h-6 border-b-2 border-l-2 rounded-bl-md border-accent/60 transition-all duration-500 group-hover:w-8 group-hover:h-8 group-hover:border-accent" />
             </div>
           </div>
         </div>
@@ -194,12 +222,14 @@ export default function Hero() {
         {/* Scroll indicator */}
         <div className="flex justify-center mt-16 lg:mt-20">
           <a
-            href="/#projects"
-            className="flex flex-col items-center gap-2 text-muted/50 hover:text-accent transition-colors group"
-            aria-label="Scroll to projects"
+            href="/#about-me"
+            className="flex flex-col items-center gap-2 text-muted hover:text-accent transition-colors group"
+            aria-label="Scroll to about"
           >
-            <span className="font-mono text-xs tracking-widest">scroll</span>
-            <span className="group-hover:translate-y-1 transition-transform">
+            <span className="font-mono text-xs tracking-widest opacity-70 group-hover:opacity-100 transition-opacity">
+              scroll
+            </span>
+            <span className="animate-scroll-float group-hover:text-accent">
               <ArrowDownIcon />
             </span>
           </a>

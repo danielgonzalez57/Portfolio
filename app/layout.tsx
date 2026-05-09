@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { AppProvider } from '@/contexts/AppContext';
+import BackToTop from '@/components/BackToTop';
 import './globals.css';
 
 const geistSans = Geist({
@@ -36,7 +37,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-background text-primary">
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          {children}
+          <BackToTop />
+        </AppProvider>
       </body>
     </html>
   );

@@ -59,7 +59,7 @@ export default function Contact() {
         {/* Section header */}
         <div className="mb-12">
           <p className="font-mono text-xs text-accent tracking-widest glow mb-3">
-            // 04. CONTACT_
+            // 06. CONTACT_
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
             Hablemos
@@ -100,7 +100,7 @@ export default function Contact() {
                     <p className="text-xs text-muted font-mono mb-0.5">github</p>
                     <p className="text-sm text-primary group-hover:text-accent transition-colors flex items-center gap-1.5">
                       <GithubIcon />
-                      jarvis_404
+                      danielgonzalez57
                     </p>
                   </div>
                 </a>

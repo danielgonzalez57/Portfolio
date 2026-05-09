@@ -1,7 +1,9 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
 import Projects from '@/components/sections/Projects';
 import Stack from '@/components/sections/Stack';
+import Services from '@/components/sections/Services';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/Footer';
 
@@ -21,9 +23,13 @@ export default function Home() {
       <main>
         <Hero />
         <SectionDivider />
+        <About />
+        <SectionDivider />
         <Projects />
         <SectionDivider />
         <Stack />
+        <SectionDivider />
+        <Services />
         <SectionDivider />
         <Contact />
       </main>

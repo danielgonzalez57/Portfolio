@@ -74,10 +74,52 @@
   50%       { opacity: 0; }
 }
 
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(70px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateX(0);    filter: blur(0px); }
+}
+
+@keyframes fade-up-card {
+  from { opacity: 0; transform: translateY(48px) scale(0.94); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0px); }
+}
+
+@keyframes scroll-float {
+  0%   { transform: translateY(0);    opacity: 0.5; }
+  50%  { transform: translateY(8px);  opacity: 1;   }
+  100% { transform: translateY(0);    opacity: 0.5; }
+}
+
+.animate-scroll-float {
+  animation: scroll-float 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 .animate-fade-in    { animation: fade-in  0.3s ease-out both; }
 .animate-slide-up   { animation: slide-up 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.0) both; }
 .animate-slide-down { animation: slide-down 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.0) both; }
 .animate-blink      { animation: cursor-blink 1s step-end infinite; }
+
+.terminal-card {
+  transition: box-shadow 0.5s ease, border-color 0.5s ease, transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.0);
+}
+.terminal-card:hover {
+  box-shadow:
+    0 0 20px  rgba(30, 215, 96, 0.25),
+    0 0 60px  rgba(30, 215, 96, 0.15),
+    0 0 120px rgba(30, 215, 96, 0.06);
+  border-color: rgba(30, 215, 96, 0.6);
+  transform: scale(1.015);
+}
+
+.banner-glow {
+  transition: box-shadow 0.7s ease, border-color 0.7s ease;
+}
+.banner-glow:hover {
+  box-shadow:
+    0 0 24px rgba(30, 215, 96, 0.12),
+    0 0 60px rgba(30, 215, 96, 0.05);
+  border-color: rgba(30, 215, 96, 0.5);
+}
 
 /* Scroll reveal — controlled by JS inView state */
 .reveal {
