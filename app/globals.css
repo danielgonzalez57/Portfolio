@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background:  #121212;
+  --color-surface:     #1a1a1a;
+  --color-border:      #282828;
+  --color-primary:     #ffffff;
+  --color-muted:       #a7a7a7;
+  --color-accent:      #1ED760;
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), "Courier New", monospace;
+}
+
+.theme-light {
+  --color-background:  #f0f0f0;
+  --color-surface:     #e8e8e8;
+  --color-border:      #d1d1d1;
+  --color-primary:     #111111;
+  --color-muted:       #555555;
+  --color-accent:      #16a34a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    height: 100%;
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::-webkit-scrollbar        { width: 4px; }
+  ::-webkit-scrollbar-track  { background: transparent; }
+  ::-webkit-scrollbar-thumb  { background: var(--color-border); border-radius: 99px; }
+}
+
+/* Phosphor glow on accent elements */
+.glow {
+  text-shadow:
+    0 0 12px rgba(30, 215, 96, 0.5),
+    0 0 28px rgba(30, 215, 96, 0.2);
+}
+
+.theme-light .glow {
+  text-shadow:
+    0 0 8px rgba(22, 163, 74, 0.35),
+    0 0 18px rgba(22, 163, 74, 0.15);
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.animate-fade-in    { animation: fade-in  0.3s ease-out both; }
+.animate-slide-up   { animation: slide-up 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.0) both; }
+.animate-slide-down { animation: slide-down 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.0) both; }
+.animate-blink      { animation: cursor-blink 1s step-end infinite; }
+
+/* Scroll reveal — controlled by JS inView state */
+.reveal {
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.0);
+}
+
+.reveal.hidden {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
