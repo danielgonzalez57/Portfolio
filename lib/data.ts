@@ -5,7 +5,7 @@ export const profile: Profile = {
   name: 'Daniel',
   handle: 'jarvis_404',
   role: 'Full-Stack Developer | IA-Native Developer',
-  bio: 'Construyo aplicaciones web modernas con foco en rendimiento, buena UX y código limpio. Me apasiona el ecosistema JavaScript/TypeScript y las arquitecturas escalables.',
+  bio: 'Full Stack Developer con 4+ años construyendo productos web escalables. Trabajo en el ecosistema JS/TS — Vue, React/Next.js, Angular, Node, NestJS — con un enfoque IA‑native que acelera ciclos de desarrollo y eleva la calidad del código.',
   location: 'Venezuela',
   email: 'danielsrkt@gmail.com',
   avatar: '/images/profile/perfil1.png',
@@ -78,42 +78,50 @@ export const projects: Project[] = [
 
 export const stack: StackCategory[] = [
   {
+    label: 'Lenguajes',
+    items: [
+      { name: 'JavaScript', icon: 'javascript', primary: true },
+      { name: 'TypeScript', icon: 'typescript', primary: true },
+      { name: 'Java',       icon: 'java',       primary: true },
+    ],
+  },
+  {
     label: 'Frontend',
     items: [
-      { name: 'React',        icon: 'react',      primary: true },
-      { name: 'Next.js',      icon: 'nextjs',     primary: true },
-      { name: 'TypeScript',   icon: 'typescript', primary: true },
-      { name: 'Tailwind CSS', icon: 'tailwind',   primary: true },
+      { name: 'React.js',     icon: 'react',   primary: true },
+      { name: 'Next.js',      icon: 'nextjs',  primary: true },
+      { name: 'Vue.js',       icon: 'vue',     primary: true },
       { name: 'Angular',      icon: 'angular' },
+      { name: 'Tailwind CSS', icon: 'tailwind' },
       { name: 'Astro',        icon: 'astro' },
     ],
   },
   {
     label: 'Backend',
     items: [
-      { name: 'Node.js',   icon: 'nodejs',   primary: true },
-      { name: 'Prisma',    icon: 'prisma',   primary: true },
-      { name: 'REST APIs', icon: 'api',      primary: true },
-      { name: 'NextAuth',  icon: 'nextauth' },
-      { name: 'JWT',       icon: 'jwt' },
+      { name: 'Node.js',        icon: 'nodejs',     primary: true },
+      { name: 'NestJS',         icon: 'nestjs',     primary: true },
+      { name: 'Spring Boot',    icon: 'springboot' },
+      { name: 'Prisma/TypeORM', icon: 'prisma' },
     ],
   },
   {
     label: 'Base de datos',
     items: [
       { name: 'PostgreSQL', icon: 'postgresql', primary: true },
+      { name: 'MongoDB',    icon: 'mongodb' },
       { name: 'MySQL',      icon: 'mysql' },
-      { name: 'SQLite',     icon: 'sqlite' },
+      { name: 'SQL Server', icon: 'sqlserver' },
     ],
   },
   {
     label: 'Herramientas',
     items: [
+      { name: 'Claude',  icon: 'claude',  primary: true },
       { name: 'Git',     icon: 'git',     primary: true },
-      { name: 'Docker',  icon: 'docker',  primary: true },
-      { name: 'VS Code', icon: 'vscode',  primary: true },
-      { name: 'Figma',   icon: 'figma' },
+      { name: 'Docker',  icon: 'docker' },
       { name: 'Postman', icon: 'postman' },
+      { name: 'Notion',  icon: 'notion' },
     ],
   },
 ];
@@ -121,19 +129,19 @@ export const stack: StackCategory[] = [
 export const services: Service[] = [
   {
     id: 'web-apps',
-    title: 'Aplicaciones Web',
+    title: 'Aplicaciones Full Stack',
     description:
-      'Apps full-stack a medida con Next.js y React. Desde dashboards hasta plataformas SaaS, optimizadas para rendimiento y SEO.',
+      'Desarrollo web completo con React/Next.js, Vue o Angular en frontend y Node.js/NestJS o Spring Boot en backend. Arquitecturas limpias, escalables y listas para producción.',
     icon: 'web',
-    features: ['Next.js / React', 'Auth & Base de datos', 'Deploy en Vercel'],
+    features: ['React · Vue · Angular', 'Node.js · NestJS · Spring Boot', 'PostgreSQL · MongoDB'],
   },
   {
-    id: 'apis',
-    title: 'APIs & Backends',
+    id: 'saas',
+    title: 'SaaS & Productos Digitales',
     description:
-      'APIs REST robustas con Node.js, autenticación JWT, validación y documentación. Integración con bases de datos y servicios externos.',
-    icon: 'api',
-    features: ['REST / Endpoints', 'JWT & Roles', 'PostgreSQL / Prisma'],
+      'Construyo productos SaaS desde cero: autenticación, roles, suscripciones, dashboards y paneles de administración. Código mantenible y arquitectura pensada para escalar.',
+    icon: 'mvp',
+    features: ['Auth & roles de usuario', 'Pagos y suscripciones', 'Dashboard & admin panel'],
   },
   {
     id: 'landing',
@@ -144,11 +152,11 @@ export const services: Service[] = [
     features: ['Mobile-first', 'SEO optimizado', 'Pagos integrados'],
   },
   {
-    id: 'mvp',
-    title: 'MVP & Prototipos',
+    id: 'ia',
+    title: 'Integración IA',
     description:
-      'Lanzá tu idea en semanas, no meses. Stack moderno, código limpio y listo para escalar cuando tu producto crezca.',
-    icon: 'mvp',
-    features: ['Entrega rápida', 'Código escalable', 'Iteración ágil'],
+      'Integro capacidades de IA en productos reales: chatbots, automatización de flujos, procesamiento de documentos y asistentes internos. Enfoque IA-native con Claude API y SDD.',
+    icon: 'api',
+    features: ['Claude API · LLMs', 'Automatización de flujos', 'SDD & desarrollo acelerado'],
   },
 ];

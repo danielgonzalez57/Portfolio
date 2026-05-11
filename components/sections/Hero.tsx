@@ -110,7 +110,7 @@ export default function Hero() {
 
             <TypewriterHeading name={profile.name} />
 
-            <p className="font-mono text-lg text-muted mb-6">
+            <p className="font-mono text-sm sm:text-base text-muted mb-6 whitespace-nowrap">
               <span className="text-accent">›</span> {profile.role}
             </p>
 

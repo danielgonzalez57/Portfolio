@@ -56,29 +56,38 @@ function ServiceIcon({ icon }: { icon: Service['icon'] }) {
 }
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
+  const cardDelay = 80  + index * 180;
+  const iconDelay = cardDelay + 280;
+
   return (
     <article
-      className="group relative flex flex-col h-full border border-border rounded-xl bg-surface p-6 hover:border-accent/40 transition-all duration-500 hover:-translate-y-1 overflow-hidden"
-      style={{ transitionDelay: `${index * 30}ms` }}
+      className="service-card group relative flex flex-col h-full border border-border rounded-xl bg-surface p-6 overflow-hidden hover:border-accent/40 hover:-translate-y-1 transition-[border-color,transform,box-shadow] duration-500 cursor-default"
+      style={{ '--delay': `${cardDelay}ms`, '--icon-delay': `${iconDelay}ms` } as React.CSSProperties}
     >
-      {/* Hover glow */}
+      {/* Top scan line */}
+      <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-accent/0 via-accent/70 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+      {/* Radial glow */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{ background: 'radial-gradient(circle at top right, rgba(30,215,96,0.08), transparent 60%)' }}
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl"
+        style={{ background: 'radial-gradient(ellipse at 90% 10%, rgba(30,215,96,0.11), transparent 65%)' }}
       />
 
-      {/* Number */}
-      <span className="absolute top-4 right-5 font-mono text-xs text-muted/30 group-hover:text-accent/50 transition-colors">
+      {/* Card number */}
+      <span className="absolute top-4 right-5 font-mono text-xs text-muted/20 group-hover:text-accent/50 transition-colors duration-500 select-none">
         0{index + 1}
       </span>
 
       {/* Icon */}
-      <div className="relative w-12 h-12 mb-5 flex items-center justify-center rounded-lg border border-accent/30 bg-accent/5 text-accent group-hover:bg-accent/10 group-hover:border-accent/60 transition-all duration-500">
+      <div
+        className="service-icon relative w-12 h-12 mb-5 flex items-center justify-center rounded-lg border border-accent/25 bg-accent/5 text-accent group-hover:bg-accent/15 group-hover:border-accent/60 group-hover:shadow-[0_0_22px_rgba(30,215,96,0.22)] transition-all duration-500"
+        style={{ '--icon-delay': `${iconDelay}ms` } as React.CSSProperties}
+      >
         <ServiceIcon icon={service.icon} />
       </div>
 
       {/* Title */}
-      <h3 className="font-bold text-lg text-primary group-hover:text-accent transition-colors mb-3">
+      <h3 className="font-bold text-lg text-primary group-hover:text-accent transition-colors duration-300 mb-3 leading-snug">
         {service.title}
       </h3>
 
@@ -89,13 +98,20 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
       {/* Features */}
       <ul className="flex flex-col gap-1.5">
-        {service.features.map((feature) => (
-          <li key={feature} className="flex items-center gap-2 font-mono text-xs text-muted">
-            <span className="text-accent">›</span>
+        {service.features.map((feature, j) => (
+          <li
+            key={feature}
+            className="service-feature flex items-center gap-2 font-mono text-xs text-muted"
+            style={{ '--feat-delay': `${iconDelay + 100 + j * 65}ms` } as React.CSSProperties}
+          >
+            <span className="text-accent shrink-0">›</span>
             {feature}
           </li>
         ))}
       </ul>
+
+      {/* Bottom gradient */}
+      <div className="absolute bottom-0 inset-x-0 h-20 bg-linear-to-t from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
     </article>
   );
 }
@@ -104,14 +120,17 @@ export default function Services() {
   const { ref, inView } = useInView();
 
   return (
-    <section
-      id="services"
-      ref={ref as React.RefObject<HTMLElement>}
-      className={`py-20 sm:py-28 reveal ${inView ? 'visible' : 'hidden'}`}
-    >
+    <section id="services" ref={ref as React.RefObject<HTMLElement>} className="py-20 sm:py-28">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        {/* Section header */}
-        <div className="mb-12">
+
+        {/* Header */}
+        <div
+          className="mb-12 transition-all duration-700 ease-out"
+          style={{
+            opacity:   inView ? 1 : 0,
+            transform: inView ? 'translateY(0)' : 'translateY(22px)',
+          }}
+        >
           <p className="font-mono text-xs text-accent tracking-widest glow mb-3">
             // 05. SERVICES_
           </p>
@@ -124,21 +143,28 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Services grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Cards grid */}
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 services-grid${inView ? ' in-view' : ''}`}>
           {services.map((service, i) => (
             <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </div>
 
         {/* CTA */}
-        <div className="mt-10 border border-dashed border-border rounded-xl px-5 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div
+          className="mt-10 border border-dashed border-border rounded-xl px-5 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 transition-all duration-700 ease-out"
+          style={{
+            opacity:         inView ? 1 : 0,
+            transform:       inView ? 'translateY(0)' : 'translateY(16px)',
+            transitionDelay: inView ? '700ms' : '0ms',
+          }}
+        >
           <p className="font-mono text-xs text-muted">
             <span className="text-accent mr-2">$</span>
             ¿Tenés un proyecto en mente? Hablemos.
           </p>
           <a
-            href="#contact"
+            href="/#contact"
             className="font-mono text-xs border border-accent text-accent hover:bg-accent hover:text-background px-3 py-1.5 rounded-sm transition-all cursor-pointer shrink-0"
           >
             [Contactar ↓]

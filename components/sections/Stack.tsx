@@ -7,11 +7,14 @@ import TechIcon from '@/components/icons/TechIcon';
 export default function Stack() {
   const { ref, inView } = useInView();
 
+  const languages  = stack.find(c => c.label === 'Lenguajes');
+  const categories = stack.filter(c => c.label !== 'Lenguajes');
+
   return (
     <section
       id="stack"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-20 sm:py-28 reveal ${inView ? 'visible' : 'hidden'}`}
+      className={`py-20 sm:py-28 reveal ${inView ? 'is-visible' : 'is-hidden'}`}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section header */}
@@ -27,11 +30,34 @@ export default function Stack() {
           </p>
         </div>
 
-        {/* Stack grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {stack.map((category) => (
+        {/* Lenguajes — horizontal badge row */}
+        {languages && (
+          <div className="mb-8">
+            <p className="font-mono text-xs text-muted/60 tracking-widest mb-3 uppercase">
+              {languages.label}
+            </p>
+            <div className="flex flex-wrap gap-2.5 stagger-children">
+              {languages.items.map((item) => (
+                <div
+                  key={item.name}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg border border-accent/30 bg-accent/5 text-primary hover:border-accent/60 hover:bg-accent/10 hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                >
+                  <TechIcon name={item.icon} size={18} className="shrink-0 inline-flex" />
+                  <span className="font-mono text-sm font-medium">{item.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Separator */}
+        <div className="border-t border-dashed border-border mb-8" />
+
+        {/* Stack grid — 4 columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+          {categories.map((category) => (
             <div key={category.label}>
-              <p className="font-mono text-xs text-muted tracking-widest mb-3 uppercase">
+              <p className="font-mono text-xs text-muted/60 tracking-widest mb-3 uppercase">
                 {category.label}
               </p>
               <div className="flex flex-col gap-2">
@@ -39,7 +65,7 @@ export default function Stack() {
                   <div
                     key={item.name}
                     className={[
-                      'flex items-center gap-2.5 px-3 py-2 rounded-lg border transition-all duration-300',
+                      'flex items-center gap-2.5 px-3 py-2 rounded-lg border transition-all duration-300 cursor-default',
                       item.primary
                         ? 'border-accent/20 bg-accent/5 text-primary hover:border-accent/50 hover:bg-accent/10 hover:-translate-y-0.5'
                         : 'border-border bg-surface text-muted hover:border-accent/30 hover:text-primary hover:-translate-y-0.5',
@@ -62,9 +88,9 @@ export default function Stack() {
           <p className="font-mono text-xs text-muted">
             <span className="text-accent mr-2">›</span>
             Siempre aprendiendo. Actualmente explorando:{' '}
-            <span className="text-primary">React Native</span>,{' '}
-            <span className="text-primary">tRPC</span>,{' '}
-            <span className="text-primary">Rust</span>.
+            <span className="text-primary">Next.js</span>,{' '}
+            <span className="text-primary">Spring Boot</span>,{' '}
+            <span className="text-primary">Temas de IA</span>.
           </p>
         </div>
       </div>

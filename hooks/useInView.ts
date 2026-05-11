@@ -2,44 +2,51 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export function useInView(options?: IntersectionObserverInit) {
+export function useInView() {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) {
-      setInView(true);
-      return;
-    }
+    if (!el) { setInView(true); return; }
 
-    // If the element is already in viewport on mount, show it immediately
-    const rect = el.getBoundingClientRect();
-    const alreadyVisible =
-      rect.top < window.innerHeight && rect.bottom > 0;
-    if (alreadyVisible) {
-      setInView(true);
-      return;
-    }
-
-    // Safety fallback: never leave the section invisible for more than 600ms
-    const fallback = setTimeout(() => setInView(true), 600);
+    let cancelled = false;
+    const show = () => { if (!cancelled) setInView(true); };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          clearTimeout(fallback);
-          setInView(true);
-          observer.unobserve(el);
+          show();
+          observer.disconnect();
+          window.removeEventListener('scroll', onScroll);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -10% 0px', ...options }
+      { threshold: 0 }
     );
 
+    const onScroll = () => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        show();
+        observer.disconnect();
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+
+    // If already in viewport at mount, fire on next frame so the keyframe runs
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      requestAnimationFrame(show);
+      return () => { cancelled = true; };
+    }
+
     observer.observe(el);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     return () => {
-      clearTimeout(fallback);
+      cancelled = true;
       observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
     };
   }, []);
 

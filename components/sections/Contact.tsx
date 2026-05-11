@@ -53,7 +53,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-20 sm:py-28 reveal ${inView ? 'visible' : 'hidden'}`}
+      className={`py-20 sm:py-28 reveal ${inView ? 'is-visible' : 'is-hidden'}`}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section header */}

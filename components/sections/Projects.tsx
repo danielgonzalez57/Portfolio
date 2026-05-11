@@ -115,7 +115,7 @@ export default function Projects() {
     <section
       id="projects"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-20 sm:py-28 reveal ${inView ? 'visible' : 'hidden'}`}
+      className={`py-20 sm:py-28 reveal ${inView ? 'is-visible' : 'is-hidden'}`}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section header */}
@@ -132,7 +132,7 @@ export default function Projects() {
         </div>
 
         {/* Featured projects */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 stagger-children">
           {featured.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
@@ -144,7 +144,7 @@ export default function Projects() {
             <p className="font-mono text-xs text-muted tracking-widest mb-4 mt-8">
               // otros proyectos
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 stagger-children">
               {others.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}

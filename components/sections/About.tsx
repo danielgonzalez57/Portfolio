@@ -10,7 +10,7 @@ export default function About() {
     <section
       id="about-me"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`py-20 sm:py-28 reveal ${inView ? 'visible' : 'hidden'}`}
+      className={`py-20 sm:py-28 reveal ${inView ? 'is-visible' : 'is-hidden'}`}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
 
@@ -25,9 +25,6 @@ export default function About() {
                 <div className="w-2.5 h-2.5 rounded-full bg-accent/60" />
               </div>
               <span className="font-mono text-xs text-muted">~/daniel/personality.png</span>
-              <span className="font-mono text-[0.65rem] text-muted/40 ml-auto hidden sm:inline">
-                pixel-art · 16x16
-              </span>
             </div>
 
             {/* Banner image — wide cinematic */}
@@ -82,28 +79,31 @@ export default function About() {
 
             <div className="space-y-4 text-muted leading-relaxed">
               <p>
-                Soy un desarrollador full-stack apasionado por crear cosas que
-                funcionen bien y se vean mejor. Disfruto del proceso completo:
-                desde imaginar la solución hasta verla corriendo en producción.
+                Full Stack Developer con 4+ años construyendo productos web completos — desde el diseño
+                de arquitectura hasta el deploy en producción. Mi stack principal es
+                JavaScript/TypeScript con Vue.js, React/Next.js, Angular, Node.js y NestJS, trabajando
+                con bases de datos SQL y NoSQL en proyectos que exigen calidad y escalabilidad.
               </p>
               <p>
-                Cuando no estoy programando, me vas a encontrar gameando, viendo
-                series, escuchando música o pensando en mi próximo side project.
-                Creo en el código limpio, los pixeles bien puestos y los
-                pequeños detalles que hacen la diferencia.
+                Trabajo con un enfoque{' '}
+                <span className="text-accent font-semibold">IA‑native</span>:
+                integro herramientas como Claude Code y el proceso SDD (Spec‑Driven Development)
+                para acelerar ciclos de desarrollo, reducir retrabajo y elevar la calidad del código.
+                Cuando no estoy programando, me encontrás jugando, viendo películas, escuchando
+                música o explorando las últimas novedades en IA.
               </p>
             </div>
           </div>
 
           {/* Right: Quick facts as vertical column */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 stagger-children">
             <div className="border border-border rounded-lg bg-surface px-4 py-3">
               <p className="font-mono text-[0.65rem] text-muted/60 tracking-widest mb-1">FOCUS</p>
               <p className="font-mono text-xs text-primary">Web full-stack</p>
             </div>
             <div className="border border-border rounded-lg bg-surface px-4 py-3">
               <p className="font-mono text-[0.65rem] text-muted/60 tracking-widest mb-1">VIBE</p>
-              <p className="font-mono text-xs text-primary">Clean code & pixel art</p>
+              <p className="font-mono text-xs text-primary">Gaming · Cine · Música · IA</p>
             </div>
             <div className="border border-border rounded-lg bg-surface px-4 py-3">
               <p className="font-mono text-[0.65rem] text-muted/60 tracking-widest mb-1">LANG</p>
