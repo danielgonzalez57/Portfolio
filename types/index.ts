@@ -52,6 +52,7 @@ export type ContentBlock =
   | { type: 'code'; language: string; content: string }
   | { type: 'list'; items: string[] }
   | { type: 'quote'; content: string }
+  | { type: 'table'; headers: string[]; rows: string[][] }
   | { type: 'divider' };
 
 export interface BlogPost {

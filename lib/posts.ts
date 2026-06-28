@@ -2,230 +2,315 @@ import type { BlogPost } from '@/types';
 
 export const posts: BlogPost[] = [
   {
-    slug: 'de-cero-a-fullstack',
-    title: 'De cero a full-stack: mi camino como developer',
+    slug: 'trabajar-con-ia-como-equipo',
+    title: 'Cómo trabajo con IA como si fuera un equipo completo',
     excerpt:
-      'Cómo empecé en el mundo del desarrollo, los errores que cometí, las tecnologías que aprendí, y lo que nadie te dice cuando estás empezando.',
-    date: '2025-04-10',
-    category: 'carrera',
-    readTime: 6,
-    blocks: [
-      {
-        type: 'paragraph',
-        content:
-          'Cuando arranqué en el desarrollo de software, nadie me dijo que el camino iba a ser tan no-lineal. Esperaba algo tipo "aprender HTML → aprender JS → conseguir trabajo". La realidad fue bastante más caótica, y creo que eso es lo que hace que valga la pena contarlo.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'Los primeros pasos',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'Empecé con tutoriales de YouTube como cualquier otro. HTML, CSS básico, formularios. La sensación de que algo que vos escribís aparece en el navegador es adictiva. Pero el problema con los tutoriales es que cuando terminás uno, no sabés qué hacer a continuación.',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'Mi error más grande al principio fue tutorial-hopping: empezar un curso, no terminarlo, empezar otro, repetir. Tardé mucho en darme cuenta de que la única forma de aprender a programar es programando proyectos reales, con problemas reales.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'El salto a JavaScript',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'JavaScript me rompió la cabeza al principio. El asincronismo, los callbacks, el this que cambia dependiendo del contexto. Pero cuando hice click con las Promises y después con async/await, todo empezó a tener más sentido.',
-      },
-      {
-        type: 'quote',
-        content:
-          'La programación no se aprende leyendo. Se aprende escribiendo código que falla, entendiéndolo, y arreglándolo.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'React y el mundo moderno',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'Cuando llegué a React, fue otro nivel. El modelo mental de componentes, estado, y efectos tardó semanas en encajar. Pero una vez que lo hizo, no podía imaginarme buildear UIs de otra forma.',
-      },
-      {
-        type: 'list',
-        items: [
-          'Empezá con proyectos pequeños y completalos',
-          'No memorices sintaxis, entendé los conceptos',
-          'Leer código de otros es tan importante como escribir el tuyo',
-          'Contribuí a proyectos open source, aunque sea documentación',
-          'El imposter syndrome nunca desaparece del todo, aprendé a vivir con él',
-        ],
-      },
-      {
-        type: 'paragraph',
-        content:
-          'Hoy trabajo con Next.js, TypeScript, Prisma, y un montón de tecnologías que hace dos años ni sabía que existían. El camino fue largo y nada recto, pero cada proyecto fallido me enseñó más que cualquier tutorial.',
-      },
-    ],
-  },
-  {
-    slug: 'building-chat-ia',
-    title: 'Building chat-IA: arquitectura, decisiones y lo que aprendí',
-    excerpt:
-      'Un breakdown técnico de cómo construí un chat con IA desde cero: streaming, autenticación, documentos, diseño del sistema, y los obstáculos que me encontré en el camino.',
-    date: '2025-05-01',
-    category: 'proyectos',
+      'No uso IA para que piense por mí. La uso para mover más rápido lo que ya sé hacer. Este es el flujo de 4 pilares —SDD, memoria persistente, agent teams y code review automatizado— con el que coordino agentes como si fueran un equipo técnico.',
+    date: '2026-06-28',
+    category: 'tecnología',
     readTime: 8,
     blocks: [
       {
-        type: 'paragraph',
+        type: 'quote',
         content:
-          'chat-IA nació de una idea simple: quería un chat con IA que pudiera analizar mis documentos. Terminar construyendo un sistema completo con autenticación, historial de conversaciones, streaming, y soporte de PDFs fue todo un viaje.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'El stack elegido',
+          'No uso IA para que piense por mí. La uso para mover más rápido lo que ya sé hacer.',
       },
       {
         type: 'paragraph',
         content:
-          'Para este proyecto usé Next.js 15 con App Router, React 19, TypeScript strict, Tailwind CSS v4, Prisma con PostgreSQL, y NextAuth v5. Todo en un solo repositorio. La elección de Next.js fue natural: maneja el frontend y el backend en el mismo repo, tiene soporte nativo para streaming, y el App Router facilita mucho la arquitectura de layouts y rutas.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'El mayor desafío: streaming',
+          'Llevo años desarrollando. Empecé sin IA, en mi etapa junior aprendí a debuggear, a leer errores, a entender por qué algo fallaba. Esa base es lo que me permite hoy usar IA de forma efectiva — porque sé cuándo se equivoca.',
       },
       {
         type: 'paragraph',
         content:
-          'Implementar el streaming de respuestas de la IA fue lo más complejo. No podía hacer un simple fetch y esperar la respuesta completa, porque con respuestas largas el usuario esperaría mucho tiempo sin feedback. La solución fue usar Server-Sent Events (SSE) desde el API route y leerlos con ReadableStream en el cliente.',
+          'Este post explica el flujo que uso actualmente para desarrollar proyectos reales, coordinando agentes de IA como si fueran un equipo técnico.',
       },
-      {
-        type: 'code',
-        language: 'typescript',
-        content: `// app/api/chat/route.ts
-const stream = new ReadableStream({
-  async start(controller) {
-    for await (const chunk of completion) {
-      const text = chunk.choices[0]?.delta?.content ?? '';
-      controller.enqueue(encoder.encode(text));
-    }
-    controller.close();
-  },
-});
-
-return new Response(stream, {
-  headers: { 'Content-Type': 'text/event-stream' },
-});`,
-      },
+      { type: 'divider' },
       {
         type: 'heading',
         level: 2,
-        content: 'Autenticación con NextAuth v5',
+        content: 'El problema que resuelve este flujo',
       },
       {
         type: 'paragraph',
         content:
-          'NextAuth v5 cambió bastante respecto a v4. La configuración es más explícita y el sistema de adapters es más limpio. Integrar el Prisma Adapter para persistir sesiones y usuarios fue directo, aunque la documentación de la beta tiene algunos huecos que tuve que resolver leyendo issues en GitHub.',
+          'Trabajar solo tiene un cuello de botella claro: el tiempo. Arquitectura, código, documentación, testing, code review — todo cae sobre una sola persona.',
       },
+      {
+        type: 'paragraph',
+        content:
+          'La solución no es hacer todo más rápido a mano. Es delegar bien.',
+      },
+      { type: 'divider' },
       {
         type: 'heading',
         level: 2,
-        content: 'Lo que haría diferente',
+        content: 'Los 4 pilares del flujo',
+      },
+      {
+        type: 'heading',
+        level: 3,
+        content: '1. SDD — Spec-Driven Development',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Todo parte de una especificación clara antes de escribir una sola línea de código. Una spec bien escrita define:',
       },
       {
         type: 'list',
         items: [
-          'Extraería el sistema de design tokens a un archivo separado desde el día uno',
-          'Agregaría tests end-to-end con Playwright desde el inicio',
-          'Usaría un job queue para el procesamiento de documentos pesados',
-          'Implementaría rate limiting en los API routes desde el principio',
+          'Qué hace el módulo',
+          'Qué recibe (inputs)',
+          'Qué devuelve (outputs)',
+          'Qué errores puede lanzar',
+          'Qué reglas de negocio aplica',
         ],
+      },
+      {
+        type: 'code',
+        language: 'markdown',
+        content: `## Spec: AuthService.login()
+
+**Input:**
+- email: string (requerido, formato válido)
+- password: string (requerido, mínimo 8 caracteres)
+
+**Output:**
+- accessToken: string (JWT, expira en 15min)
+- refreshToken: string (JWT, expira en 7 días, httpOnly cookie)
+
+**Errores:**
+- 401 → credenciales inválidas
+- 429 → demasiados intentos (rate limit)
+
+**Reglas:**
+- El password nunca se devuelve en ninguna respuesta
+- El refreshToken se envía solo como cookie, nunca en el body
+- Máximo 5 intentos fallidos antes de bloquear por 15 minutos`,
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Con esa spec, le doy el contexto al agente y genero el diseño técnico del módulo, el código base, los tests unitarios y la documentación. Si la spec cambia, el sistema se actualiza desde la raíz. No hay código huérfano ni documentación desincronizada.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 3,
+        content: '2. Memoria persistente entre sesiones (Engram)',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'El problema de los agentes de IA es que no recuerdan. Cada sesión empieza desde cero. Engram resuelve esto guardando decisiones de arquitectura, convenciones del proyecto y el contexto acumulado entre sesiones.',
+      },
+      {
+        type: 'code',
+        language: 'json',
+        content: `// engram-context.json
+{
+  "project": "Ticket Comedy",
+  "stack": {
+    "frontend": "Next.js 14 (App Router)",
+    "backend": "Supabase",
+    "auth": "Supabase Auth + RLS"
+  },
+  "decisions": [
+    "Los pagos son manuales — confirmación por WhatsApp del admin",
+    "No hay pasarela de pago integrada (contexto venezolano)",
+    "RLS activo en todas las tablas públicas"
+  ],
+  "conventions": {
+    "components": "PascalCase",
+    "functions": "camelCase",
+    "db_tables": "snake_case"
+  }
+}`,
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Al iniciar una nueva sesión, inyecto ese contexto. El agente no arranca desde cero — arranca desde donde lo dejé.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 3,
+        content: '3. Agent Teams — Subagentes con roles',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'En lugar de pedirle todo a un solo agente, divido el trabajo por especialidad:',
+      },
+      {
+        type: 'table',
+        headers: ['Agente', 'Rol', 'Prompt base'],
+        rows: [
+          [
+            'Architect',
+            'Define estructura, relaciones, patrones',
+            '“Actúa como arquitecto de software senior...”',
+          ],
+          [
+            'Coder',
+            'Implementa según la spec',
+            '“Implementa siguiendo la spec adjunta, sin inventar...”',
+          ],
+          [
+            'Docs',
+            'Genera documentación técnica',
+            '“Documenta este módulo en formato JSDoc + README...”',
+          ],
+          [
+            'Tester',
+            'Escribe tests unitarios e integración',
+            '“Genera tests para este servicio usando Vitest...”',
+          ],
+        ],
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Cada agente tiene su propio contexto inyectado. No mezclo roles en el mismo hilo.',
+      },
+      {
+        type: 'code',
+        language: 'typescript',
+        content: `// Ejemplo: prompt para el agente Coder
+const coderPrompt = \`
+Eres un desarrollador Full Stack senior especializado en NestJS y TypeScript.
+
+Contexto del proyecto:
+\${JSON.stringify(engramContext, null, 2)}
+
+Spec del módulo a implementar:
+\${moduleSpec}
+
+Reglas:
+- No inventes funcionalidad que no esté en la spec
+- Si algo no está claro, pregunta antes de asumir
+- Sigue las convenciones del proyecto definidas en el contexto
+- Genera código listo para producción, no ejemplos
+\`;`,
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 3,
+        content: '4. GGA — Code Review automatizado',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Antes de hacer commit, el código pasa por un agente revisor.',
+      },
+      {
+        type: 'code',
+        language: 'typescript',
+        content: `// Prompt para el agente GGA (Code Review)
+const reviewPrompt = \`
+Eres un senior developer haciendo code review.
+
+Revisa el siguiente código y reporta:
+1. Bugs o errores lógicos
+2. Vulnerabilidades de seguridad
+3. Violaciones de las convenciones del proyecto
+4. Código duplicado o innecesario
+5. Casos edge no manejados
+
+Sé directo. No elogies lo que está bien, solo reporta lo que hay que arreglar.
+
+Código a revisar:
+\${codeToReview}
+
+Contexto del proyecto:
+\${JSON.stringify(engramContext, null, 2)}
+\`;`,
+      },
+      {
+        type: 'paragraph',
+        content:
+          'El output es una lista de issues concretos, no comentarios genéricos.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'El flujo completo en la práctica',
+      },
+      {
+        type: 'code',
+        language: 'text',
+        content: `1. Defino la spec del módulo (SDD)
+        ↓
+2. El agente Architect propone la estructura
+        ↓
+3. El agente Coder implementa contra la spec
+        ↓
+4. El agente Tester genera los tests
+        ↓
+5. GGA revisa el código antes del commit
+        ↓
+6. Actualizo el contexto en Engram
+        ↓
+7. El agente Docs documenta el módulo
+        ↓
+8. Commit + PR`,
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Cada paso tiene su propio agente con su propio prompt. El contexto fluye a través de Engram. Yo coordino, no ejecuto todo.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: '¿Consume más tokens este flujo?',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Sí. Bastante más. Cada agente hace sus propias llamadas, Engram inyecta contexto en cada request, y si corren en paralelo se multiplica.',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Pero el costo real no es en tokens — es en tiempo de setup. Este flujo brilla en proyectos con múltiples módulos y sesiones largas. Para un componente aislado, es overkill.',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Mi regla: uso el flujo completo cuando el proyecto tiene más de 3 módulos interconectados. Para cosas pequeñas, SDD solo ya da el 80% del beneficio.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Lo que aprendí',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Empecé a programar sin IA. Eso me dio algo que no se puede saltear: saber qué está mal cuando el agente se equivoca.',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'La IA no reemplaza el criterio técnico. Lo amplifica. Un junior que no entiende lo que genera el agente va a commitear bugs con confianza. Un dev que ya sabe va a usarla como multiplicador.',
       },
       {
         type: 'quote',
         content:
-          'El diseño del sistema importa más que la implementación. Es más fácil reescribir código que cambiar la arquitectura.',
+          'Este flujo no es para que la IA piense por mí. Es para que yo pueda pensar en más cosas al mismo tiempo.',
       },
-    ],
-  },
-  {
-    slug: 'nextjs-15-react-19-workflow',
-    title: 'Next.js 15 + React 19: lo que cambió en mi workflow',
-    excerpt:
-      'Las novedades de Next.js 15 y React 19 que más impacto tuvieron en cómo desarrollo día a día: Server Components, Turbopack, nuevo compilador, y más.',
-    date: '2025-05-08',
-    category: 'tecnología',
-    readTime: 5,
-    blocks: [
+      { type: 'divider' },
       {
         type: 'paragraph',
         content:
-          'Con la llegada de Next.js 15 y React 19 a stable, hay cambios que afectan directamente cómo estructuro mis proyectos. Algunos son quality-of-life improvements, otros cambian el modelo mental por completo.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'Turbopack en dev mode',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'El salto de velocidad en el servidor de desarrollo con Turbopack es real. En proyectos medianos, el hot reload pasó de ~800ms a ~150ms en mi máquina. No es un benchmark científico, pero la diferencia se siente en el día a día.',
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'React 19: el compilador cambia todo',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'El nuevo compilador de React (antes conocido como React Forget) automatiza la memorización. Ya no necesito pensar en cuándo usar useMemo o useCallback para evitar re-renders innecesarios. El compilador lo infiere automáticamente.',
-      },
-      {
-        type: 'code',
-        language: 'typescript',
-        content: `// Antes: tenías que pensar en esto
-const handleSubmit = useCallback(() => {
-  // ...
-}, [deps]);
-
-// Ahora: el compilador lo optimiza automáticamente
-const handleSubmit = () => {
-  // ...
-};`,
-      },
-      {
-        type: 'heading',
-        level: 2,
-        content: 'Server Actions maduros',
-      },
-      {
-        type: 'paragraph',
-        content:
-          'Los Server Actions en Next.js 15 son production-ready. Los uso para mutations de formularios, operaciones de base de datos directas desde componentes, y cualquier cosa que necesite correr en el servidor sin crear un API route explícito.',
-      },
-      {
-        type: 'list',
-        items: [
-          'Turbopack estable: dev server significativamente más rápido',
-          'React 19 compiler: menos boilerplate de memorización',
-          'Server Actions: mutations sin API routes explícitos',
-          'Partial Prerendering: mejor estrategia de renderizado híbrido',
-          'use() hook: manejo más limpio de Promises en componentes',
-        ],
-      },
-      {
-        type: 'paragraph',
-        content:
-          'El ecosistema Next.js sigue evolucionando rápido. La clave es no intentar adoptar todo de una vez, sino ir incorporando las novedades que realmente resuelven problemas en tus proyectos actuales.',
+          '¿Usas un flujo parecido? Cuéntame en LinkedIn o escríbeme directo.',
       },
     ],
   },

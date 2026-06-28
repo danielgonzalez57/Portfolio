@@ -87,6 +87,50 @@ export default function PostContent({ blocks }: PostContentProps) {
               </blockquote>
             );
 
+          case 'table':
+            return (
+              <div
+                key={index}
+                className="rounded-xl border border-border overflow-x-auto"
+              >
+                <table className="w-full border-collapse text-left text-[0.85rem]">
+                  <thead>
+                    <tr className="bg-surface border-b border-border">
+                      {block.headers.map((header, i) => (
+                        <th
+                          key={i}
+                          className="font-mono text-[0.7rem] uppercase tracking-widest text-accent px-4 py-3 whitespace-nowrap"
+                        >
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block.rows.map((row, ri) => (
+                      <tr
+                        key={ri}
+                        className="border-b border-border/60 last:border-0 align-top"
+                      >
+                        {row.map((cell, ci) => (
+                          <td
+                            key={ci}
+                            className={`px-4 py-3 leading-relaxed ${
+                              ci === 0
+                                ? 'font-mono font-semibold text-primary whitespace-nowrap'
+                                : 'text-muted'
+                            }`}
+                          >
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+
           case 'divider':
             return (
               <hr key={index} className="border-border" />

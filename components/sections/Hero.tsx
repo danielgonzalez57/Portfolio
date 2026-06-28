@@ -123,9 +123,6 @@ export default function Hero() {
               <span className="font-mono text-xs border border-border rounded-sm px-2.5 py-1 text-muted">
                 📍 {profile.location}
               </span>
-              <span className="font-mono text-xs border border-border rounded-sm px-2.5 py-1 text-muted">
-                ⚡ Open to work
-              </span>
             </div>
 
             {/* CTA buttons */}
@@ -185,12 +182,12 @@ export default function Hero() {
                 </div>
 
                 {/* Photo */}
-                <div className="relative w-56 sm:w-72 aspect-square">
+                <div className="relative w-56 sm:w-72 aspect-square overflow-hidden">
                   <Image
                     src={profile.avatar}
                     alt={profile.name}
                     fill
-                    className="object-cover"
+                    className="object-cover scale-125 translate-y-[10%]"
                     priority
                   />
                   {/* Scanlines overlay */}
