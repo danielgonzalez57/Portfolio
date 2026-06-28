@@ -84,7 +84,7 @@ export default function Navbar() {
         className={[
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled || menuOpen
-            ? 'bg-background/95 backdrop-blur-md border-b border-border'
+            ? 'bg-background border-b border-border'
             : 'bg-transparent',
         ].join(' ')}
       >
@@ -139,7 +139,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {menuOpen && (
-          <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md animate-slide-down">
+          <div className="md:hidden border-t border-border bg-background animate-slide-down">
             <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-1">
               {NAV_LINKS.map((link) => {
                 const isActive =

@@ -36,7 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans antialiased bg-background text-primary">
+      <body
+        className="font-sans antialiased bg-background text-primary"
+        suppressHydrationWarning
+      >
         <AppProvider>
           {children}
           <BackToTop />
