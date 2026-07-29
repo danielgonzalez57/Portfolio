@@ -135,7 +135,7 @@ export default function Services() {
             // 05. SERVICES_
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
-            Lo que puedo hacer por vos
+            Lo que puedo hacer por ti
           </h2>
           <p className="text-muted max-w-xl">
             Desde MVPs hasta plataformas completas. Tecnología moderna, código mantenible y
@@ -161,7 +161,7 @@ export default function Services() {
         >
           <p className="font-mono text-xs text-muted">
             <span className="text-accent mr-2">$</span>
-            ¿Tenés un proyecto en mente? Hablemos.
+            ¿Tienes un proyecto en mente? Hablemos.
           </p>
           <a
             href="/#contact"

@@ -3,8 +3,14 @@
 import { useState, type FormEvent } from 'react';
 import { profile } from '@/lib/data';
 import { useInView } from '@/hooks/useInView';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import Toast from '@/components/Toast';
 
-type FormState = 'idle' | 'loading' | 'success' | 'error';
+type SentMessage = {
+  id: string;
+  name: string;
+  text: string;
+};
 
 function GithubIcon() {
   return (
@@ -22,28 +28,33 @@ function LinkedinIcon() {
   );
 }
 
+function WhatsappIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12.04 2c-5.52 0-10 4.48-10 10 0 1.76.46 3.48 1.34 5L2 22l5.13-1.35a9.96 9.96 0 0 0 4.91 1.29h.01c5.52 0 10-4.48 10-10s-4.49-9.94-10.01-9.94zm5.83 14.1c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.19-1.58-1.19-3.01 0-1.43.75-2.13 1.02-2.42.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2.01.89 2.16.07.15.12.32.02.52-.1.2-.15.32-.29.49-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.35 1.46.29.15.46.13.63-.08.17-.2.72-.84.91-1.13.19-.29.39-.24.65-.14.27.1 1.68.79 1.97.93.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/>
+    </svg>
+  );
+}
+
+const whatsappUrl = (text: string) =>
+  `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(text)}`;
+
 export default function Contact() {
   const { ref, inView } = useInView();
-  const [formState, setFormState] = useState<FormState>('idle');
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+  const [sent, setSent] = useState<SentMessage[]>([]);
+  const { copied: emailCopied, copy: copyEmail } = useCopyToClipboard();
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setFormState('loading');
+    if (!message.trim()) return;
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+    const text = name.trim() ? `Hola, soy ${name.trim()}. ${message.trim()}` : message.trim();
+    window.open(whatsappUrl(text), '_blank', 'noopener,noreferrer');
 
-      if (!res.ok) throw new Error('Failed');
-      setFormState('success');
-      setForm({ name: '', email: '', message: '' });
-    } catch {
-      setFormState('error');
-    }
+    setSent((prev) => [...prev, { id: crypto.randomUUID(), name: name.trim(), text: message.trim() }]);
+    setMessage('');
   };
 
   const inputClass =
@@ -75,9 +86,29 @@ export default function Contact() {
             <div className="border border-border rounded-xl bg-surface p-5 space-y-4">
               <p className="font-mono text-xs text-muted tracking-widest">// contacto directo</p>
 
-              <a
-                href={`mailto:${profile.email}`}
-                className="flex items-start gap-3 group"
+              {profile.whatsapp && (
+                <a
+                  href={whatsappUrl('Hola Daniel, vi tu portfolio y quiero conversar contigo.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 group"
+                >
+                  <span className="font-mono text-xs text-accent mt-0.5">›</span>
+                  <div>
+                    <p className="text-xs text-muted font-mono mb-0.5">whatsapp</p>
+                    <p className="text-sm text-primary group-hover:text-accent transition-colors flex items-center gap-1.5">
+                      <WhatsappIcon />
+                      Escríbeme directo
+                    </p>
+                  </div>
+                </a>
+              )}
+
+              <button
+                type="button"
+                onClick={() => copyEmail(profile.email)}
+                aria-label={`Copiar ${profile.email}`}
+                className="flex items-start gap-3 group text-left w-full cursor-pointer"
               >
                 <span className="font-mono text-xs text-accent mt-0.5">›</span>
                 <div>
@@ -86,7 +117,7 @@ export default function Contact() {
                     {profile.email}
                   </p>
                 </div>
-              </a>
+              </button>
 
               {profile.social.find((s) => s.icon === 'github') && (
                 <a
@@ -134,86 +165,69 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right: Form */}
+          {/* Right: WhatsApp composer */}
           <div className="lg:col-span-3">
-            {formState === 'success' ? (
-              <div className="border border-accent/30 bg-accent/5 rounded-xl p-8 text-center animate-slide-up">
-                <p className="font-mono text-accent text-lg glow mb-2">
-                  ✓ Mensaje enviado
-                </p>
-                <p className="text-sm text-muted">
-                  Gracias por escribir. Te respondo a la brevedad.
-                </p>
-                <button
-                  onClick={() => setFormState('idle')}
-                  className="mt-4 font-mono text-xs text-muted hover:text-accent border border-border rounded-sm px-3 py-1.5 transition-colors cursor-pointer"
-                >
-                  [enviar otro ↩]
-                </button>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block font-mono text-xs text-muted mb-1.5">
+                  nombre <span className="text-muted/50">(opcional)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Tu nombre"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={inputClass}
+                />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block font-mono text-xs text-muted mb-1.5">
-                      nombre
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Tu nombre"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className={inputClass}
-                    />
+
+              <div>
+                <label className="block font-mono text-xs text-muted mb-1.5">
+                  mensaje
+                </label>
+                <textarea
+                  required
+                  rows={5}
+                  placeholder="Hola, me gustaría hablar sobre..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full font-mono text-sm border border-accent text-accent hover:bg-accent hover:text-background py-2.5 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <WhatsappIcon />
+                Enviar por WhatsApp ↗
+              </button>
+
+              <p className="font-mono text-[0.7rem] text-muted/60 text-center">
+                Se abre WhatsApp con tu mensaje listo — solo falta que le des enviar ahí.
+              </p>
+            </form>
+
+            {sent.length > 0 && (
+              <div className="mt-6 space-y-2 animate-slide-up">
+                <p className="font-mono text-xs text-muted tracking-widest">// tu mensaje</p>
+                {sent.map((m) => (
+                  <div key={m.id} className="flex justify-end">
+                    <div className="max-w-[85%] bg-accent/10 border border-accent/30 rounded-xl rounded-tr-sm px-4 py-2.5">
+                      {m.name && (
+                        <p className="font-mono text-[0.65rem] text-accent/70 mb-1">{m.name}</p>
+                      )}
+                      <p className="text-sm text-primary whitespace-pre-wrap">{m.text}</p>
+                    </div>
                   </div>
-                  <div>
-                    <label className="block font-mono text-xs text-muted mb-1.5">
-                      email
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="tu@email.com"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-mono text-xs text-muted mb-1.5">
-                    mensaje
-                  </label>
-                  <textarea
-                    required
-                    rows={6}
-                    placeholder="Hola, me gustaría hablar sobre..."
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className={`${inputClass} resize-none`}
-                  />
-                </div>
-
-                {formState === 'error' && (
-                  <p className="font-mono text-xs text-red-400 border border-red-400/20 bg-red-400/5 rounded-lg px-3 py-2">
-                    Error al enviar. Intentá de nuevo o escribime directamente por email.
-                  </p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={formState === 'loading'}
-                  className="w-full font-mono text-sm border border-accent text-accent hover:bg-accent hover:text-background py-2.5 rounded-lg transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {formState === 'loading' ? '[enviando...]' : '[Enviar mensaje ↗]'}
-                </button>
-              </form>
+                ))}
+              </div>
             )}
           </div>
         </div>
       </div>
+
+      <Toast message={`Has copiado el email "${profile.email}"`} show={emailCopied} />
     </section>
   );
 }

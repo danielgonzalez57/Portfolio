@@ -27,7 +27,6 @@ app/
   blog/
     page.tsx            # Blog listing
     [slug]/page.tsx     # Individual post
-  api/contact/route.ts  # Contact form endpoint (add email provider)
   globals.css           # Design tokens + animations
   layout.tsx            # Root layout with fonts + AppProvider
 
@@ -38,7 +37,7 @@ components/
     Hero.tsx            # About me, photo, social links, CTA
     Projects.tsx        # Project cards grid
     Stack.tsx           # Tech stack by category
-    Contact.tsx         # Contact info + form
+    Contact.tsx         # Contact info + WhatsApp message composer
   blog/
     BlogCard.tsx        # Post card for listing
     PostContent.tsx     # Block-based post renderer
@@ -62,7 +61,7 @@ types/index.ts          # Shared interfaces
 - `public/images/avatar.jpg` — Add your photo
 - `public/cv.pdf` — Add your CV
 - `app/layout.tsx` — Update metadata title/description
-- `app/api/contact/route.ts` — Add email provider (e.g., Resend)
+- `lib/data.ts` — `profile.whatsapp` — WhatsApp number (E.164 digits, no `+`) used by the Contact section
 
 ## Adding blog posts
 

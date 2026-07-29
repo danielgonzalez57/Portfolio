@@ -314,6 +314,159 @@ Contexto del proyecto:
       },
     ],
   },
+  {
+    slug: 'clonarte-en-claude',
+    title: 'Cómo clonarte en Claude en menos de 48 horas',
+    excerpt:
+      'Armé mi propio "clon" en Claude: un asistente que ya sabe quién soy, cómo pienso y con qué herramientas trabajo, en vez de repetirle el mismo contexto en cada chat. Esto es lo que hice, paso a paso.',
+    date: '2026-07-29',
+    category: 'tecnología',
+    readTime: 6,
+    tags: ['Claude'],
+    blocks: [
+      {
+        type: 'quote',
+        content:
+          'Mi clon no reemplaza mi criterio. Lo extiende — pero solo porque le di el contexto correcto.',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Estaba cansado de repetirle a Claude quién soy y cómo trabajo cada vez que abría un chat nuevo. Así que un fin de semana me senté a armar mi propio "clon": una versión de Claude que ya entiende mi contexto, mis reglas y mis herramientas, en vez de arrancar de cero cada vez. Esto fue lo que hice, en 6 pasos.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Paso 1 — Escribí mi about-me.md',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Lo primero que hice fue un archivo con quién soy, qué hago, qué valoro y cómo me comunico. Sin esto, cada respuesta salía genérica — Claude me trataba como a cualquier usuario, no como a mí.',
+      },
+      {
+        type: 'code',
+        language: 'markdown',
+        content: `# about-me.md
+
+## Quién soy
+Full Stack Developer, 4+ años en JS/TS (Vue, React/Next.js, NestJS) y Java.
+Enfoque IA-native: uso Claude Code + SDD para acelerar ciclos de desarrollo.
+
+## Qué hago
+Construyo productos web completos y automatizaciones con n8n + IA.
+
+## Mis valores
+- Código simple antes que código "inteligente"
+- No fabricar información — si no sé algo, lo digo
+- Preferir la solución aburrida que funciona sobre la elegante que rompe
+
+## Mi estilo
+Directo, técnico, sin relleno. Explico el "por qué", no solo el "qué".
+
+## Qué importa
+Que el código que entrego sea algo que yo mismo mantendría en 6 meses.`,
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Paso 2 — Escribí mi CLONE.md',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Después armé un segundo archivo, pero esta vez con las reglas de cómo debía pensar y responder el clon: qué priorizar, qué tono usar, qué hacer cuando no está seguro de algo. Esto fue lo que más noté en las respuestas — dejaron de sonar a "IA genérica" y empezaron a sonar más a mí.',
+      },
+      {
+        type: 'code',
+        language: 'markdown',
+        content: `# CLONE.md
+
+## Cómo debe pensar
+- Priorizar precisión sobre velocidad de respuesta
+- Si falta contexto, preguntar antes de asumir
+- Nunca inventar código, links o datos que no puede verificar
+
+## Reglas
+- No usar emojis salvo que se pida explícitamente
+- Respuestas cortas por defecto; expandir solo si se pide detalle
+- Marcar claramente cuándo algo es una opinión vs. un hecho verificado
+
+## Tono y estilo
+Técnico, directo, sin relleno motivacional. Como hablarle a un colega senior.`,
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Paso 3 — Empecé a trabajar en proyectos, no en chats sueltos',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Dejé de abrir una conversación nueva para cada cosa y empecé a agrupar el trabajo dentro de Projects, con un objetivo y un plan claros. Ahí fue cuando noté la diferencia real: el contexto se acumulaba en vez de perderse cada vez que cerraba el chat.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Paso 4 — Conecté mis herramientas',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Un clon sin acceso a mis herramientas solo podía opinar. Conectado, podía actuar: leer un repo, revisar un documento, ver el estado real de algo antes de responder. Vía MCP (Model Context Protocol) conecté cosas como:',
+      },
+      {
+        type: 'list',
+        items: [
+          'GitHub — leer issues, PRs, código real del repo',
+          'Google Drive / Notion — mis propios documentos y notas',
+          'Slack — contexto de conversaciones del equipo',
+          'Sistemas internos vía API — datos específicos del proyecto',
+        ],
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Paso 5 — Definí mis "skills"',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Documenté cómo escribo, cómo investigo y cómo estructuro un análisis o una automatización — capacidades reutilizables que no quería reexplicar cada vez. Una vez definidas, se invocan en vez de repetirse, como entrenar a alguien una sola vez en lugar de corregirlo todos los días.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: 'Paso 6 — Lo programé',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Por último dejé revisiones y chequeos corriendo de forma recurrente, en vez de acordarme de pedirlos manualmente. Esa consistencia fue lo que terminó de hacer que el clon pasara de "útil a veces" a algo que uso todos los días.',
+      },
+      { type: 'divider' },
+      {
+        type: 'heading',
+        level: 2,
+        content: '¿Valió la pena?',
+      },
+      {
+        type: 'paragraph',
+        content:
+          'Sí, pero con un matiz que aprendí en el camino: el clon no piensa por mí, actúa con mi criterio ya cargado. Cuando dejé el about-me.md y el CLONE.md sin tocar por un tiempo, empezó a responder con una versión vieja de mí — hay que mantenerlos, no escribirlos una vez y olvidarse.',
+      },
+      {
+        type: 'quote',
+        content: 'Yo + mi clon no fue magia. Fue contexto bien armado, mantenido con disciplina.',
+      },
+    ],
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

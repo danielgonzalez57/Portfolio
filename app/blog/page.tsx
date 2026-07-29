@@ -3,15 +3,13 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
-import BlogGrid from '@/components/blog/BlogGrid';
+import BlogExplorer from '@/components/blog/BlogExplorer';
 import { getAllPosts } from '@/lib/posts';
 
 export const metadata: Metadata = {
   title: 'Blog · Daniel González',
   description: 'Experiencias de vida laboral, proyectos y reflexiones sobre tecnología.',
 };
-
-const CATEGORIES = ['todos', 'carrera', 'proyectos', 'tecnología', 'vida'] as const;
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -44,24 +42,8 @@ export default function BlogPage() {
             </p>
           </div>
 
-          {/* Category pills */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {CATEGORIES.map((cat) => (
-              <span
-                key={cat}
-                className={`font-mono text-xs border rounded-sm px-3 py-1.5 cursor-default transition-colors ${
-                  cat === 'todos'
-                    ? 'border-accent/40 text-accent bg-accent/5'
-                    : 'border-border text-muted hover:border-accent/20 hover:text-primary'
-                }`}
-              >
-                {cat}
-              </span>
-            ))}
-          </div>
-
-          {/* Posts grid con stagger */}
-          <BlogGrid posts={posts} />
+          {/* Category filter + posts grid */}
+          <BlogExplorer posts={posts} />
 
           {/* Note */}
           <div className="mt-12 border border-dashed border-border rounded-xl px-5 py-4">

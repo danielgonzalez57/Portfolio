@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PostContent from '@/components/blog/PostContent';
+import TagBadge from '@/components/TagBadge';
 import { getPostBySlug, getAllPosts } from '@/lib/posts';
 import { profile } from '@/lib/data';
 
@@ -86,6 +87,14 @@ export default async function PostPage({ params }: Props) {
           <p className="text-muted leading-relaxed">
             {post.excerpt}
           </p>
+
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {post.tags.map((tag) => (
+                <TagBadge key={tag} tag={tag} />
+              ))}
+            </div>
+          )}
 
           <div className="mt-6 border-t border-border pt-4 flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center font-mono text-xs font-bold text-accent select-none">

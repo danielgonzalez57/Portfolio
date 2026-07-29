@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { profile } from '@/lib/data';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
+import Toast from '@/components/Toast';
 import type { SocialLink } from '@/types';
 
 function TypewriterHeading({ name }: { name: string }) {
@@ -94,6 +96,8 @@ function SocialIcon({ icon }: { icon: SocialLink['icon'] }) {
 }
 
 export default function Hero() {
+  const { copied, copy } = useCopyToClipboard();
+
   return (
     <section
       id="about"
@@ -147,21 +151,36 @@ export default function Hero() {
 
             {/* Social links */}
             <div className="flex items-center gap-3">
-              {profile.social.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.icon !== 'email' ? '_blank' : undefined}
-                  rel="noopener noreferrer"
-                  aria-label={link.label}
-                  className="flex items-center gap-2 font-mono text-xs text-muted hover:text-accent border border-border hover:border-accent/40 px-3 py-2 rounded-sm transition-all"
-                >
-                  <SocialIcon icon={link.icon} />
-                  {link.label}
-                </a>
-              ))}
+              {profile.social.map((link) =>
+                link.icon === 'email' ? (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={() => copy(profile.email)}
+                    aria-label={`Copiar ${profile.email}`}
+                    className="flex items-center gap-2 font-mono text-xs text-muted hover:text-accent border border-border hover:border-accent/40 px-3 py-2 rounded-sm transition-all cursor-pointer"
+                  >
+                    <SocialIcon icon={link.icon} />
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    className="flex items-center gap-2 font-mono text-xs text-muted hover:text-accent border border-border hover:border-accent/40 px-3 py-2 rounded-sm transition-all"
+                  >
+                    <SocialIcon icon={link.icon} />
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
           </div>
+
+          <Toast message={`Has copiado el email "${profile.email}"`} show={copied} />
 
           {/* Right: Avatar */}
           <div className="order-1 lg:order-2 flex justify-center lg:justify-end animate-fade-in">
@@ -187,7 +206,7 @@ export default function Hero() {
                     src={profile.avatar}
                     alt={profile.name}
                     fill
-                    className="object-cover scale-125 translate-y-[10%]"
+                    className="object-cover scale-105 translate-y-[4%]"
                     priority
                   />
                   {/* Scanlines overlay */}

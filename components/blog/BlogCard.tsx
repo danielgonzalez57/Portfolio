@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import TagBadge from '@/components/TagBadge';
 import type { BlogPost } from '@/types';
 
 const CATEGORY_STYLES: Record<string, string> = {
@@ -58,6 +59,15 @@ export default function BlogCard({ post }: BlogCardProps) {
         <p className="text-sm text-muted leading-relaxed line-clamp-3 mb-4 flex-1">
           {post.excerpt}
         </p>
+
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {post.tags.map((tag) => (
+              <TagBadge key={tag} tag={tag} />
+            ))}
+          </div>
+        )}
 
         {/* Read more */}
         <div className="flex items-center gap-1.5 font-mono text-xs text-muted group-hover:text-accent transition-colors">

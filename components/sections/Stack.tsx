@@ -53,8 +53,8 @@ export default function Stack() {
         {/* Separator */}
         <div className="border-t border-dashed border-border mb-8" />
 
-        {/* Stack grid — 4 columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+        {/* Stack grid — one row on large screens */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 stagger-children">
           {categories.map((category) => (
             <div key={category.label}>
               <p className="font-mono text-xs text-muted/60 tracking-widest mb-3 uppercase">

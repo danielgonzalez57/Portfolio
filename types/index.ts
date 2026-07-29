@@ -7,6 +7,14 @@ export interface Project {
   demo?: string;
   featured: boolean;
   status: 'live' | 'wip' | 'archived';
+  /** Extended text shown in the "Ver detalles" modal for projects without a public link. */
+  details?: string;
+  /** Ordered steps the automation follows, shown as a numbered flow in the details modal. */
+  steps?: string[];
+  /** Approximate time the automation saves, shown as a highlighted stat (e.g. "~6 horas/semana"). */
+  timeSaved?: string;
+  /** Business rationale — why the automation exists and how it helps the company. */
+  impact?: string;
 }
 
 export interface StackItem {
@@ -41,6 +49,8 @@ export interface Profile {
   bio: string;
   location: string;
   email: string;
+  /** E.164 format, digits only (no +, spaces or dashes), used to build wa.me links. */
+  whatsapp?: string;
   avatar: string;
   social: SocialLink[];
   cv?: string;
@@ -62,5 +72,7 @@ export interface BlogPost {
   date: string;
   category: string;
   readTime: number;
+  /** Tech/tool tags shown with their icon when available (see TAG_ICON_MAP). */
+  tags?: string[];
   blocks: ContentBlock[];
 }

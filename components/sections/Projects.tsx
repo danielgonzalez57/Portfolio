@@ -1,9 +1,101 @@
 'use client';
 
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { projects } from '@/lib/data';
 import { useInView } from '@/hooks/useInView';
+import TagBadge from '@/components/TagBadge';
 import type { Project } from '@/types';
+
+function ProjectDetailsModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-modal-title"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-lg max-h-[85vh] overflow-y-auto bg-surface border border-border rounded-xl shadow-2xl animate-slide-up"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6">
+          <div className="flex items-start justify-between gap-3 mb-1">
+            <span
+              className={`font-mono text-[0.65rem] border rounded-sm px-1.5 py-0.5 tracking-widest ${STATUS_STYLES[project.status]}`}
+            >
+              {STATUS_LABELS[project.status]}
+            </span>
+            <button
+              onClick={onClose}
+              aria-label="Cerrar"
+              className="w-7 h-7 shrink-0 -mt-1 -mr-1 flex items-center justify-center rounded-lg text-muted hover:text-accent hover:bg-background transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+          <h3 id="project-modal-title" className="font-mono font-bold text-primary text-xl mb-4">
+            {project.title}
+          </h3>
+          <p className="text-sm text-muted leading-relaxed mb-4">
+            {project.details ?? project.description}
+          </p>
+
+          {project.steps && project.steps.length > 0 && (
+            <div className="mb-4">
+              <p className="font-mono text-xs text-muted tracking-widest mb-2.5">// cómo funciona</p>
+              <ol className="space-y-2">
+                {project.steps.map((step, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span className="font-mono text-[0.65rem] text-accent border border-accent/30 rounded-full w-5 h-5 shrink-0 flex items-center justify-center mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span className="text-sm text-muted leading-relaxed">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {project.timeSaved && (
+            <div className="mb-4 border border-accent/30 bg-accent/5 rounded-lg px-4 py-2.5 flex items-center gap-2.5">
+              <span className="text-lg">⏱</span>
+              <p className="font-mono text-xs text-primary">
+                Tiempo ahorrado: <span className="text-accent">{project.timeSaved}</span>
+              </p>
+            </div>
+          )}
+
+          {project.impact && (
+            <p className="text-sm text-muted leading-relaxed mb-4 border-l-2 border-accent/30 pl-3">
+              {project.impact}
+            </p>
+          )}
+
+          <div className="flex flex-wrap gap-1.5">
+            {project.tags.map((tag) => (
+              <TagBadge key={tag} tag={tag} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
 
 function ExternalIcon() {
   return (
@@ -35,7 +127,7 @@ const STATUS_STYLES: Record<Project['status'], string> = {
   archived: 'text-muted border-border',
 };
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, onOpenDetails }: { project: Project; onOpenDetails: (project: Project) => void }) {
   return (
     <article className="group flex flex-col border border-border rounded-xl bg-surface hover:border-accent/30 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden">
       {/* Header */}
@@ -91,22 +183,29 @@ function ProjectCard({ project }: { project: Project }) {
       </p>
 
       {/* Tags */}
-      <div className="p-5 pt-4 flex flex-wrap gap-1.5">
+      <div className={`px-5 pt-4 flex flex-wrap gap-1.5 ${project.details ? '' : 'pb-5'}`}>
         {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="font-mono text-[0.65rem] border border-border rounded-sm px-2 py-0.5 text-muted/70 tracking-wide"
-          >
-            {tag}
-          </span>
+          <TagBadge key={tag} tag={tag} />
         ))}
       </div>
+
+      {project.details && (
+        <div className="px-5 pb-5 pt-4">
+          <button
+            onClick={() => onOpenDetails(project)}
+            className="font-mono text-xs text-accent hover:underline underline-offset-2 tracking-wide"
+          >
+            Ver detalles →
+          </button>
+        </div>
+      )}
     </article>
   );
 }
 
 export default function Projects() {
   const { ref, inView } = useInView();
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   const featured = projects.filter((p) => p.featured);
   const others   = projects.filter((p) => !p.featured);
@@ -134,7 +233,7 @@ export default function Projects() {
         {/* Featured projects */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6 stagger-children">
           {featured.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} onOpenDetails={setActiveProject} />
           ))}
         </div>
 
@@ -142,16 +241,20 @@ export default function Projects() {
         {others.length > 0 && (
           <>
             <p className="font-mono text-xs text-muted tracking-widest mb-4 mt-8">
-              // otros proyectos
+              // automatizaciones e IA
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 stagger-children">
               {others.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+                <ProjectCard key={project.id} project={project} onOpenDetails={setActiveProject} />
               ))}
             </div>
           </>
         )}
       </div>
+
+      {activeProject && (
+        <ProjectDetailsModal project={activeProject} onClose={() => setActiveProject(null)} />
+      )}
     </section>
   );
 }
