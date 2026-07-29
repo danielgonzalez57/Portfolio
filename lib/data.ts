@@ -50,7 +50,7 @@ export const projects: Project[] = [
     description:
       'E-commerce en producción de suplementos alimenticios: SPA en Vue 3 + TypeScript que consume una API REST en NestJS, con carrito persistente, checkout con Stripe y panel de administración de productos, pedidos e inventario.',
     tags: ['Vue.js', 'TypeScript', 'Pinia', 'Vite', 'Tailwind', 'Stripe', 'Nest.js'],
-    github: undefined,
+    github: 'https://github.com/danielgonzalez57/e-commerce-frontend',
     demo: 'https://supplemearth.com/',
     featured: true,
     status: 'live',
