@@ -5,7 +5,7 @@ export const profile: Profile = {
   name: 'Daniel',
   handle: 'jarvis_404',
   role: 'Full-Stack Developer | IA-Native Developer',
-  bio: 'Full Stack Developer con 4+ años construyendo productos web escalables — desde el diseño de arquitectura hasta el deploy en producción. Trabajo en el ecosistema JS/TS (Vue, React/Next.js, Angular, Node, NestJS) y en Java con Spring Boot, con un enfoque IA‑native: uso Claude Code, RAG y automatización de flujos con n8n para acelerar ciclos de desarrollo, construir asistentes internos y elevar la calidad del código.',
+  bio: 'Full Stack Developer con 4+ años construyendo productos web escalables. JS/TS (Vue, React/Next.js, NestJS) y Java/Spring Boot, con un enfoque IA‑native: Claude Code, RAG y automatización con n8n para acelerar el desarrollo.',
   location: 'Venezuela',
   email: 'danielsrkt@gmail.com',
   whatsapp: '584127170458',
