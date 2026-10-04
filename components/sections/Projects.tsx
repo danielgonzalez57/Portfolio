@@ -47,9 +47,14 @@ function ProjectDetailsModal({ project, onClose }: { project: Project; onClose: 
               ✕
             </button>
           </div>
-          <h3 id="project-modal-title" className="font-mono font-bold text-primary text-xl mb-4">
-            {project.title}
-          </h3>
+          <div className="mb-4">
+            <h3 id="project-modal-title" className="font-mono font-bold text-primary text-xl">
+              {project.title}
+            </h3>
+            {project.brand && (
+              <p className="font-mono text-xs text-accent mt-0.5">{project.brand}</p>
+            )}
+          </div>
           <p className="text-sm text-muted leading-relaxed mb-4">
             {project.details ?? project.description}
           </p>
@@ -148,6 +153,9 @@ function ProjectCard({ project, onOpenDetails }: { project: Project; onOpenDetai
           <h3 className="font-mono font-bold text-primary group-hover:text-accent transition-colors text-lg">
             {project.title}
           </h3>
+          {project.brand && (
+            <p className="font-mono text-xs text-accent/80 mt-0.5">{project.brand}</p>
+          )}
         </div>
 
         {/* Links */}

@@ -33,7 +33,8 @@ export const profile: Profile = {
 export const projects: Project[] = [
   {
     id: 'pinto-y-aparte',
-    title: 'Venta de Entradas Online — Pinto & Aparte',
+    title: 'Venta de Entradas Online',
+    brand: 'Pinto & Aparte',
     description:
       'Plataforma de venta de entradas en producción para shows de stand-up comedy: pago móvil y Binance Pay con verificación automática, dashboard administrativo propio y validación de acceso el día del show escaneando el QR enviado por correo.',
     tags: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind', 'QR', 'Binance Pay'],
@@ -46,7 +47,8 @@ export const projects: Project[] = [
   },
   {
     id: 'supplemearth',
-    title: 'E-commerce de Suplementos — SupplemEarth',
+    title: 'E-commerce de Suplementos',
+    brand: 'SupplemEarth',
     description:
       'E-commerce en producción de suplementos alimenticios: SPA en Vue 3 + TypeScript que consume una API REST en NestJS, con carrito persistente, checkout con Stripe y panel de administración de productos, pedidos e inventario.',
     tags: ['Vue.js', 'TypeScript', 'Pinia', 'Vite', 'Tailwind', 'Stripe', 'Nest.js'],

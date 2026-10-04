@@ -1,6 +1,8 @@
 export interface Project {
   id: string;
   title: string;
+  /** Product/brand name, shown smaller below the title (e.g. the live site's name). */
+  brand?: string;
   description: string;
   tags: string[];
   github?: string;
