@@ -61,7 +61,8 @@ export const projects: Project[] = [
   },
   {
     id: 'creditu',
-    title: 'Creditu',
+    title: 'SaaS Fintech',
+    brand: 'Creditu',
     description:
       'Plataforma SaaS de créditos hipotecarios full-stack (Vue + NestJS): gestión de operaciones, pre-calificación, simulación financiera y evaluación crediticia en tiempo real. Proyecto privado para el sector inmobiliario.',
     tags: ['Vue.js', 'Nest.js', 'TypeScript', 'Pinia', 'TypeORM', 'SSE'],
