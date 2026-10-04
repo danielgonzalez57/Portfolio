@@ -32,17 +32,17 @@ export const profile: Profile = {
 
 export const projects: Project[] = [
   {
-    id: 'creditu',
-    title: 'Creditu',
+    id: 'pinto-y-aparte',
+    title: 'Pinto & Aparte',
     description:
-      'Plataforma SaaS de créditos hipotecarios full-stack (Vue + NestJS): gestión de operaciones, pre-calificación, simulación financiera y evaluación crediticia en tiempo real. Proyecto privado para el sector inmobiliario.',
-    tags: ['Vue.js', 'Nest.js', 'TypeScript', 'Pinia', 'TypeORM', 'SSE'],
-    github: undefined,
-    demo: undefined,
+      'Plataforma de venta de entradas en producción para shows de stand-up comedy: pago móvil y Binance Pay con verificación automática, dashboard administrativo propio y validación de acceso el día del show escaneando el QR enviado por correo.',
+    tags: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind', 'QR', 'Binance Pay'],
+    github: 'https://github.com/danielgonzalez57/Ticket-comedy',
+    demo: 'https://pintoyaparte.com/',
     featured: true,
     status: 'live',
     details:
-      'Plataforma SaaS privada para el sector hipotecario/inmobiliario, full-stack. Cubre todo el ciclo de una operación de crédito: desde el lead y la pre-calificación (flujo kanban) hasta la simulación financiera (cuotas, seguros, pie), la evaluación crediticia y la firma. Backend en NestJS con diseño orientado a dominios (deals, evaluations, simulations, documents, notifications), PostgreSQL + TypeORM, actualizaciones en tiempo real vía SSE con Redis pub/sub, y control de permisos granular por rol. Frontend en Vue 3 (Composition API), TypeScript, Pinia y TailwindCSS + Shadcn/ui.',
+      'Plataforma de venta de entradas en producción para shows de stand-up comedy en Venezuela, construida con Next.js 15 (App Router) y Supabase (Postgres + Auth + Storage). El cliente elige su asiento sobre un mapa de filas/columnas generado por show, paga por Pago Móvil o Binance Pay —con verificación automática contra la API de Binance Pay— y recibe la entrada por correo (Resend) con un código QR único. El día del evento, el staff valida el acceso escaneando ese QR con la cámara del celular: válido, ya usado o inválido en tiempo real. Incluye un dashboard administrativo completo para crear shows, gestionar asientos y órdenes, confirmar pagos manuales y recibir notificaciones de cada venta por Telegram. La lógica sensible (crear órdenes, confirmar pagos, validar entradas) corre en el servidor con la service role key de Supabase.',
   },
   {
     id: 'supplemearth',
@@ -58,15 +58,17 @@ export const projects: Project[] = [
       'Tienda online de suplementos en producción. Frontend SPA con Vue 3 (Composition API), TypeScript, Pinia y Vue Router, consumiendo una API REST en NestJS (hosteada en Railway) vía una capa de servicios con Axios. Autenticación JWT con roles (admin/usuario) y guards de ruta, carrito persistido en localStorage, checkout con Stripe, panel de administración de productos/pedidos/inventario, y rate limiting del lado del cliente en los formularios de auth. Desplegado en Vercel.',
   },
   {
-    id: 'chat-ia',
-    title: 'chat-IA',
+    id: 'creditu',
+    title: 'Creditu',
     description:
-      'Chat con IA tipo RAG sobre Next.js 15: ingesta de documentos PDF/DOCX, embeddings y recuperación de contexto para respuestas fundamentadas, con streaming, auth (NextAuth) y persistencia en Prisma.',
-    tags: ['Next.js', 'React', 'TypeScript', 'RAG', 'Embeddings', 'Prisma', 'NextAuth'],
-    github: 'https://github.com/danielgonzalez57/Chat-IA',
+      'Plataforma SaaS de créditos hipotecarios full-stack (Vue + NestJS): gestión de operaciones, pre-calificación, simulación financiera y evaluación crediticia en tiempo real. Proyecto privado para el sector inmobiliario.',
+    tags: ['Vue.js', 'Nest.js', 'TypeScript', 'Pinia', 'TypeORM', 'SSE'],
+    github: undefined,
     demo: undefined,
     featured: true,
     status: 'live',
+    details:
+      'Plataforma SaaS privada para el sector hipotecario/inmobiliario, full-stack. Cubre todo el ciclo de una operación de crédito: desde el lead y la pre-calificación (flujo kanban) hasta la simulación financiera (cuotas, seguros, pie), la evaluación crediticia y la firma. Backend en NestJS con diseño orientado a dominios (deals, evaluations, simulations, documents, notifications), PostgreSQL + TypeORM, actualizaciones en tiempo real vía SSE con Redis pub/sub, y control de permisos granular por rol. Frontend en Vue 3 (Composition API), TypeScript, Pinia y TailwindCSS + Shadcn/ui.',
   },
   {
     id: 'ai-executive-assistant',
