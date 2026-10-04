@@ -39,6 +39,16 @@ function RagIcon({ size = 20 }: { size?: number }) {
   );
 }
 
+function FlutterIcon({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M14.3 2H21L10.1 12.9 6.5 9.3 14.3 2z" fill="#44D1FD" />
+      <path d="M14.3 22H21l-7.6-7.6-3.6-3.6-3.6 3.6L14.3 22z" fill="#03569B" />
+      <path d="M10.1 16.7l3.6-3.6-3.6-3.6-3.6 3.6 3.6 3.6z" fill="#1CB0F6" />
+    </svg>
+  );
+}
+
 function FallbackIcon({ name, size = 20 }: { name: string; size?: number }) {
   const letter = name.charAt(0).toUpperCase();
   const color = COLORS[name.toLowerCase()] ?? '#1ED760';
@@ -63,6 +73,8 @@ export default function TechIcon({ name, size = 20, className }: TechIconProps) 
     node = <VueIcon size={size} />;
   } else if (key === 'rag') {
     node = <RagIcon size={size} />;
+  } else if (key === 'flutter') {
+    node = <FlutterIcon size={size} />;
   } else {
     node = <FallbackIcon name={key} size={size} />;
   }

@@ -4,8 +4,8 @@ import type { Profile, Project, Service, StackCategory } from '@/types';
 export const profile: Profile = {
   name: 'Daniel',
   handle: 'jarvis_404',
-  role: 'Full-Stack Developer | IA-Native Developer',
-  bio: 'Full Stack Developer con 4+ años construyendo productos web escalables. JS/TS (Vue, React/Next.js, NestJS) y Java/Spring Boot, con un enfoque IA‑native: Claude Code, RAG y automatización con n8n para acelerar el desarrollo.',
+  role: 'Full-Stack & Mobile Developer | IA-Native Developer',
+  bio: 'Full Stack Developer con 4+ años construyendo productos web escalables. JS/TS (Vue, React/Next.js, NestJS) y Java/Spring Boot, además de apps móviles con Flutter, con un enfoque IA‑native: Claude Code, RAG y automatización con n8n para acelerar el desarrollo.',
   location: 'Venezuela',
   email: 'danielsrkt@gmail.com',
   whatsapp: '584127170458',
@@ -148,6 +148,12 @@ export const stack: StackCategory[] = [
       { name: 'Node.js',     icon: 'nodejs',     primary: true },
       { name: 'NestJS',      icon: 'nestjs',     primary: true },
       { name: 'Spring Boot', icon: 'springboot' },
+    ],
+  },
+  {
+    label: 'Mobile',
+    items: [
+      { name: 'Flutter', icon: 'flutter', primary: true },
     ],
   },
   {
